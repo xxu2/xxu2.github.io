@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html>
+<head>
+            <title>UNL-VRTM</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Website for UNL-VRTM radiative transfer model" />
+        <meta name="keywords" content="Radiative transfer, UNL-VRTM, request UNL-VRTM, Xiaoguang Xu, polarimetric aerosol inversion, OSSE, UNL-VRTM User Guide" />
+        <meta name="author" content="Xiaoguang Richard Xu" />
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,300,200|Droid+Sans' rel='stylesheet' type='text/css' />
+        <link href="inland.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="style/boxes.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="js/base.js"></script>
+
+   <!--
+    <link rel="stylesheet" href="leaflet1.7.1/leaflet.css" />
+    <script src="leaflet1.7.1/leaflet.js"></script>  <!-- JavaScript for Leaflet map -->
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
+    <script src="leaflet/leaflet-color-markers.js"></script>
+</head>
+
+<body>
+
+<!-- table style -->
+<style type="text/css">
+   .user_tbl{
+      width: 410px;
+      float: left;
+   }
+   table.user_tbl {
+      margin-bottom:40px;
+      margin-left: 15px;
+      margin-right:15px;
+      border-width: 1px 1px 1px 1px;
+      border-spacing: 4px;
+      padding:10px 10px 20px 10px;
+      border-style: solid solid solid solid;
+      border-color: #aaa;
+      border-collapse: separate;
+      background-color: none;
+      border-radius:5px;
+   }
+   table.user_tbl th {
+      border:none;
+      padding: 1px;
+      border-bottom: 1px solid #ddd;
+      background-color: none;
+   }
+   table.user_tbl td {
+      border:none;
+      padding: 1px 10px;
+      background-color: none;
+   }
+    .paddedAnchor{
+      position: relative;
+    }
+    .paddedAnchor > a{
+      position: absolute;
+      top: -110px;
+    }
+</style>
+
+<div id="header" class="clearfix" style="z-index:99;">
+     <div style="margin:0px auto;width:960px;">    
+                <div id="sitetitle" class="clearfix">
+                        <!--<h1 class="textshadow"><a href="index.php">U N L - V R T M</span></a></h1> -->
+                        <a href="index.php.html"><img src="images/unlvrtm-log-blue-new-small.png" height="25" style="display:block;padding:25px 0px 5px 50px;"/></a>
+                </div>
+
+                <div id="nav" class="clearfix textshadow">
+                        <ul>
+                        <li><a  href="index.php.html">Home</a></li>
+                        <li><a  href="gettingstarted.php.html">Getting Started</a></li>
+                        <li><a  href="code.php.html">Code</a></li>
+                        <li><a  href="doc.html">Documents</a></li>
+                        <li><a class="current" href="community.php.html">Community</a></li>
+                        <li><a  href="https://unl-vrtm.org/contact.php">Contact</a></li>
+                        <li><a  href="give.php.html">Give</a></li>
+                        </ul>
+                </div>
+
+        </div>
+</div>
+
+<div id="wrapper960" class="clearfix">
+
+    <div id="content">
+        <br />
+		<h2 style="text-align:center;margin-bottom:0px;">UNL-VRTM User Community</h2>
+		<br />
+		<p style="text-align:center;margin-bottom:-15px;">
+		    This page lists the scientists working with UNL-VRTM. Click on a pin to see the name of the institution and follow the link to find out how it uses the model! Use the zoom button on the map to resolve individual pins. See below for a complete list of the user groups.
+		</p>
+    </div>
+
+
+    <div id="mapid" style="width:94%; height:380px; margin:auto;"></div>
+    
+    <script>
+    
+    /*var mymap = L.map('mapid', {
+        center: [25, -6],
+        zoom: 2,
+        closePopupOnClick: true,
+      });
+      
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoidW5sdnJ0bSIsImEiOiJjanlzMjNuZGEwN3drM2dtazN5MnM2aXhlIn0.mu2ksYPdBM651Pq1aFNI9A'
+}).addTo(mymap);*/
+    
+    /*var mymap = L.map('mapid').setView([25, -6], 2);*/
+    var mymap = L.map('mapid', {
+        center: [25, -6],
+        zoom: 2,
+        closePopupOnClick: false,
+      });
+    
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    accessToken: 'pk.eyJ1IjoidW5sdnJ0bSIsImEiOiJjanlzMjNuZGEwN3drM2dtazN5MnM2aXhlIn0.mu2ksYPdBM651Pq1aFNI9A'
+}).addTo(mymap);
+    
+    <!-- US -->
+	L.marker([41.664354, -91.538057],{icon:blueIcon,zIndexOffset:1000}).addTo(mymap).bindPopup("<a href='community.php.html#uiowa'>University of Iowa</a><br />Iowa City, IA");
+    L.marker([37.086222, -76.380376],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#langley'>NASA Langley Research Center</a><br />Hampton, VA");
+    L.marker([40.587967, -105.147212],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#csu'>Colorado State University</a><br />Fort Collins, CO");
+    L.marker([42.278361, -83.737259],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#michigan'>University of Michigan</a><br />Ann Arbor, MI");
+    L.marker([40.820088, -73.948586],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#ccny'>The City College of New York</a><br />New York, NY");
+    L.marker([38.988056, -76.944722],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#umd'>University of Maryland</a><br />College Park, MD");
+    L.marker([42.381445, -71.127250],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#cfa'>Harvard-Smithsonian Center for Astrophysics</a><br />Cambridge, MA");
+    L.marker([37.204674, -80.411983],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#vt'>Virginia Tech</a><br />Blacksburg, VA");
+    L.marker([30.618614, -96.336424],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#tamu'>Texas A&amp;M University</a><br />College Station, TX");
+    L.marker([39.254534, -76.709485],{icon:blueIcon,zIndexOffset:100}).addTo(mymap).bindPopup("<a href='community.php.html#umbc'>University of Maryland</a><br />Baltimore County, MD");
+    L.marker([38.996944, -76.848333],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#gsfc'>NASA Goddard Space Flight Center</a><br />Greenbelt, MD");
+    L.marker([37.873126, -122.255814],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#berkeley'>University of California</a><br />Berkeley, CA");
+    L.marker([21.298592, -157.815688],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#hawii'>University of Hawii</a><br />Honolulu, HI");
+    L.marker([41.316884, -72.923328],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#yale'>Yale University</a><br />New Haven, CT");
+    
+    <!-- China -->
+	L.marker([40.071696, 116.482172],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#aoe">CAS Academy of Opto-Electronics</a><br />Beijing");
+	L.marker([40.071696, 116.282172],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#irsde">CAS Institute of Remote Sensing and Digital Earth</a><br />Beijing");
+	L.marker([39.977945, 116.390367],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#iap'>CAS Institute of Atmospheric Physics</a><br />Beijing");
+	L.marker([31.836122, 117.269751],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#ustc">University of Science and Technology of China</a><br />Heifei, Anhui");
+    L.marker([36.048047, 103.858552],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#lanzhou">Lanzhou University</a><br />Lanzhou, Gansu");
+    L.marker([31.284630, 118.390160],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#anu'>Anhui Normal University</a><br />Wuhu, Anhui");
+    L.marker([31.902587, 117.169691],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#aiofm'>CAS Anhui Institute of Optics and Fine Mechanics</a><br />Heifei, Anhui");
+    L.marker([39.962649, 116.364481],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#bnu'>Beijing Normal University</a><br />Beijing");
+    L.marker([32.074366, 118.825998],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#niaot">Nanjing Institute of Astronomical Optics &amp;Technology</a><br />Nanjing, Jiangsu");
+    L.marker([30.521655, 114.406415],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#cug">China University of Geosciences</a><br />Wuhan, China");
+    L.marker([36.000081, 120.124566],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#sust">Shandong University of Science and Technology</a><br />Qingdao, China");
+    L.marker([22.304238, 114.179571],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#hkpu">Hong Kong Polytechnic University</a><br />Hong Kong, China");
+    L.marker([30.280006, 120.139570],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#sio">Second Institute of Oceanography, MNR</a><br />Hangzhou, China");
+    L.marker([40.073561, 116.231217],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#sec">Satellite Environmental Center, Ministry of Ecology and Environment</a><br />Beijing, China");
+    
+    <!-- Others -->
+	L.marker([30.080205, 31.290995],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#ema'>Egyptian Meteorological Authority</a><br />Cairo");
+	L.marker([-31.75049, 115.799287],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#ecu'>Edith Cowan University</a><br />Perth, Australia");
+	L.marker([-32, 147],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#csiro">Commonwealth Scientific A&amp; Industrial Research Organisation (CSIRO)</a><br />Australia");
+    L.marker([51.352512, 12.435000],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#leibniz">Leibniz Institute for Tropospheric Research e.V.</a><br />Leipzig, Germany");
+    L.marker([37.972986, 23.718438],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#athens">National Observatory of Athens</a><br />Athens, Greece");
+    L.marker([49.865487, 8.627671],{icon:redIcon}).addTo(mymap).bindPopup("<a href='community.php.html#eumetsat'>EUMETSAT</a><br />Darmstadt, Germany");
+    L.marker([53.410445, 10.422511],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#hzg">Helmholtz-Zentrum Geesthacht</a><br />Geesthacht, Germany");
+    L.marker([36.003076, 139.349015],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#jaxa">JAXA Earth Observation Research Center</a><br />Japan");
+    L.marker([37.566294, 126.938572],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#yonsei">Yonsei University</a><br />Seoul, South Korea");
+    L.marker([35.233799, 129.080652],{icon:redIcon}).addTo(mymap).bindPopup("<a href="community.php.html#pusan">Pusan National University</a><br />Geumjeong-gu, Busan, South Korea");
+    
+    var popup = L.popup();
+    mymap.on('click', onMapClick);
+    
+    </script>
+
+    <div id="content">
+
+        <br />
+		<h2 style="text-align:center;margin-bottom:0px;">Listing of UNL-VRTM User Groups</h2>
+		<p style="text-align:center;margin-top:5px;margin-bottom:0px;">Updated 21 Jan 2021</p>
+		<p style="text-align:center;margin-top:10px;margin-bottom:-10px;">
+        Please <a href="https://unl-vrtm.org/contact.php">contact us</a> if you would like to add&sol;update your information 
+        </p>
+
+		<br />
+
+
+    </div>
+    
+    <div id="bileft">
+
+        <!-- Iowa -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="uiowa"></a></span><h4 style="text-align:center;"><b>University of Iowa</b><br />Iowa City, Iowa</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM to evaluate information content of remote sensing measurements in both shortwave and longwave spectral wavelengths for retrieving aerosols, clouds, fires, and surface properties, from which we use the model to develop algorithms for retrieving loadings and optical properties of aerosols and clouds. Our research interests involve remote sensing techniques with hyperspectral, multi-angle polarimetric, and night-time measurements. We support the development of UNL-VRTM model for the general benefit of its user community.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Website</b>: <a href="https://arroma.uiowa.edu/" target="_blank">arroma.uiowa.edu</a> </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: <a href="https://arroma.uiowa.edu/pi.php" target="_blank">Dr. Jun Wang</a></TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: <a href="https://arroma.uiowa.edu/all_team.php" target="_blank">See list of members here</a></TD>
+            </TR>
+        </table>
+
+        <!-- Anhui Normal U-->
+        <table class="user_tbl"  style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="anu"></a></span><h4 style="text-align:center;"><b>Anhui Normal University</b><br />Wuhu, Anhui</h4></TH></TR>
+            <TR>
+                <TD>Study and explore the source code of UNL-VRTM, and aim to use it for simulating the atsmopheric remote sensing observations. </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Jinji Ma</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Hao Wang, Feifei Xu</TD>
+            </TR>
+        </table>
+        
+        <!-- National Observatory of Athens -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="athens"></a></span><h4 style="text-align:center;"><b>National Observatory of Athens</b><br />Athens, Greece</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Dr. Dimitris Paronis</TD>
+            </TR>
+        </table> 
+        
+        
+        <!-- Beijing Normal University -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="bnu"></a></span><h4 style="text-align:center;"><b>Beijing Normal University</b><br />Beijing</h4></TH></TR>
+            <TR>
+                <TD>I plan to use it to generate a LUT for atmospheric correction</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Keping Du</TD>
+            </TR>
+        </table> 
+        <!-- Berkely -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="berkeley"></a></span><h4 style="text-align:center;"><b>University of California, Berkeley</b><br />Berkely, California</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM with VLIDORT to facilitate the preparation of profiles of atmospheric optical properties, including gases and aerosols, and surface reflectance, to investigate sensitivity of NO2 retrieval at different spectral range, and to improve current NO2 retrieval algorithm.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: <a href="https://chili90.weebly.com/" target="_blank">Dr. Chi Li</a></TD>
+            </TR>
+
+        </table>         
+
+
+        <!-- Commonwealth Scientific A&amp; Industrial Research Organisation -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="csiro"></a></span><h4 style="text-align:center;"><b>Commonwealth Scientific A&amp; Industrial Research Organisation (CSIRO)</b><br />Australia</h4></TH></TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Karthik Mukkavilli</TD>
+            </TR>
+        </table> 
+
+        <!-- Edith Cowan University -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="ecu"></a></span><h4 style="text-align:center;"><b>Edith Cowan University</b><br />Perth, Western Australia</h4></TH></TR>
+            <TR>
+                <TD>I would like to use the testbed system to evaluate Himawari-9 data and retrievals over regional Australia.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Miles Sowden</TD>
+            </TR>
+        </table> 
+
+        <!-- EUMETSAT, Darmstadt, Germany-->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="eumetsat"></a></span><h4 style="text-align:center;"><b>EUMETSAT</b><br />Darmstadt, Germany</h4></TH></TR>
+            <TR>
+                <TD>I need UNL-VRTM to test it with satellite data.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact:</b> Dr. Alexander Kokhanovsky</TD>
+            </TR>
+        </table>
+        
+        <!-- NASA GSFC -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="gsfc"></a></span><h4 style="text-align:center;"><b>NASA Goddard Space Flight Center</b><br />Greenbelt, MD</h4></TH></TR>
+            <TR>
+                <TD>To simulate O2-A and -B bands signal for aerosol layer height retrievals from passive satellite sensors</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: <a href="https://science.gsfc.nasa.gov/sed/bio/hiren.t.jethva" target="_blank">Dr. Hiren Jethva</a></TD>
+            </TR>
+            
+            <TR><TH>...<br /></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM for exploratory sensitivity and information content analysis for aerosol, cloud, and surface modeling.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Andy Sayer</TD>
+            </TR>
+            
+            <TR><TH>...<br /></TH></TR>
+            <TR>
+                <TD>For developing algorithms and look-up tables for the NASA PACE program</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Samuel Anderson</TD>
+            </TR>
+        </table>
+        
+        <!-- University of Hawii-->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="hawii"></a></span><h4 style="text-align:center;"><b>University of Hawii</b><br />Honolulu, HI</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM for final project reseach, and required by professor </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Lei Zhang</TD>
+            </TR>
+            <TR>
+                <TD>Lalala</TD>
+            </TR>
+        </table>
+        
+        <!-- AXA Earth Observation Research Center -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="jaxa"></a></span><h4 style="text-align:center;"><b>JAXA Earth Observation Research Center</b><br />Japan</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Chong Shi</TD>
+            </TR>
+        </table>
+        
+        <!-- Lanzhou University -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="lanzhou"></a></span><h4 style="text-align:center;"><b>Lanzhou University</b><br />Lanzhou, China</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD>Group Website: </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Tianhe Wang</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Lijie Yao</TD>
+            </TR>
+
+        </table>
+        
+        <!-- University of Maryland College Park -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="umd"></a></span><h4 style="text-align:center;"><b>University of Maryland</b><br />College Park, MD</h4></TH></TR>
+            <TR>
+                <TD>Calculate EDVI after atmospheric correction using UNL-VRTM.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Yang Han</TD>
+            </TR>
+            
+            <TR><TH>...<br /></TH></TR>
+            <TR>
+                <TD>Description of intent of use.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Cheng Da</TD>
+            </TR>
+        </table>
+        
+        <!-- Nanjing Institute of Astronomical Optics -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="niaot"></a></span><h4 style="text-align:center;"><b>Nanjing Institute of Astronomical Optics &amp;Technology</b><br />Nanjing, Jiangsu</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM to study how the clouds type influence the result of radiative transfer model</TD>
+            </TR>
+
+            <TR>
+                <TD><b>Group Contact</b>: Fei Wang</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Institute of Remote Sensing and Digital Earth -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="irsde"></a></span><h4 style="text-align:center;"><b>Institute of Remote Sensing and Digital Earth</b><br />Beijing</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM for satellite polarimetric remote sensing of aerosols, simulation for aerosol retrieval based on remote sensing, and ground-based aerosol remote sensing and aerosol characteristics retrival.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Zhengqiang Li</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contacts</b>: Dr. Weizhen Hou</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Li Li, Lili Qie, Fengxun Zheng</TD>
+            </TR>
+
+            <TR><TH>...<br /></TH></TR>
+            <TR>
+                <TD>Hyperspectral gaseous remote sensing.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Liangfu Chen</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Liangxio Cheng</TD>
+            </TR>
+            
+        </table>
+        
+        <!-- Satellite Environmental Center, Ministry of Ecology and Environment-->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="sec"></a></span><h4 style="text-align:center;"><b>Satellite Environmental Center, Ministry of Ecology and Environment</b><br />Beijing</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Pengfei Ma</TD>
+            </TR>
+
+
+        </table>
+        
+        <!-- Shandong University of Science and Technology -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="sust"></a></span><h4 style="text-align:center;"><b>Shandong University of Science and Technology</b><br />Qingdao, China</h4></TH></TR>
+            <TR>
+                <TD>I want to use UNL-VRTM to perform radiation transmission simulation and aerosol inversions.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Xin Su</TD>
+            </TR>
+        </table>
+        
+        <!-- Virginia Tech -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="vt"></a></span><h4 style="text-align:center;"><b>Virginia Tech</b><br />Blacksburg, VA</h4></TH></TR>
+            <TR>
+                <TD>We would like to use your UNL-VTRM for ground based passive remote sensing of trace gases and aerosols using DOAS technique.</TD>
+            </TR>
+
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Elena Lind</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Yun Dong</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Yale -->
+        <table class="user_tbl" style="float:right">
+            <TR><TH><span class="paddedAnchor"><a name="yale"></a></span><h4 style="text-align:center;"><b>Yale University</b><br />New Haven, CT</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM for atmospheric correction; mainly to get atmospheric transmissivity to correct thermal bands</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Website</b>: <a href="https://tc25.github.io/" target="_blank">https://tc25.github.io</a></TD>
+            </TR>
+            <TR>
+                <TD>Group Members: TC Chakraborty</TD>
+            </TR>
+        </table>
+        
+        
+    </div>
+    
+    <!-- ***** RIGHT COLUMN ***** -->
+    <!-- ***** RIGHT COLUMN ***** -->
+    <!-- ***** RIGHT COLUMN ***** -->
+    <div id="biright">
+
+        <!-- UMBC -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="umbc"></a></span><h4 style="text-align:center;"><b>University of Maryland Baltimore County</b><br />Baltimore, Maryland</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM for remote sensing of atmospheric aerosols, clouds, and Earth surface. We integrate the UNL-VRTM model with chemistry tranport models for data assimilation of satellite remote sensing data. We also maintain the model developments and unl-vrtm.org website, and provide support for the user community.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group website</b>: <a href="https://xu.unl-vrtm.org" target="_blank">xu.unl-vrtm.org</a> </TD>
+            </TR>
+            <TR>
+                <TD><b>Group contact</b>: Dr. Xiaoguang (Richard) Xu</TD>
+            </TR>
+        </table>
+
+        <!-- AIOFM -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="aiofm"></a></span><h4 style="text-align:center;"><b>Anhui Institute of Optics and Fine Mechanics, Chinese Academy of Sciences</b><br />Hefei, Anhui</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM to deal with weighting function calculations in atmospheric parameter retrieval.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Website</b>:  </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Jun Wu</TD>
+            </TR>
+        </table>
+        
+        <!-- CAS Institute of Atmospheric Physics -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="iap"></a></span><h4 style="text-align:center;"><b>Institute of Atmospheric Physics, Chinese Academy of Sciences</b><br />Beijing</h4></TH></TR>
+            <TR>
+                <TD>To get familiar with the radiative transfer code. In my study and research, the quantitative analysis of the radiative forcing of Aerosol in the atmosphere would be siginificant.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Disong Fu</TD>
+            </TR>
+        </table>  
+        
+        <!-- CCNY -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="ccny"></a></span><h4 style="text-align:center;"><b>The City College of New York</b><br />New York City</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Nathaniel Levitan</TD>
+            </TR>
+        </table>  
+        
+        <!-- CSU -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="csu"></a></span><h4 style="text-align:center;"><b>Colorado State University</b><br />Fort Collins, Colorado</h4></TH></TR>
+            <TR>
+                <TD>UNL-VRTM is used for MURI project, and perhaps will also be used for teaching and deveoping new projects.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Website</b>: <a href="http://cloud-radiation.atmos.colostate.edu/" target="_blank">cloud-radiation.atmos.colostate.edu</a></TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: <a href="https://cloud-radiation.atmos.colostate.edu/group/" target="_blank">Dr. Christine Chiu</a></TD>
+            </TR>
+
+            <TR><TH>...<br /></TH></TR>
+            <TR>
+                <TD>Basic RTM simulations for sensitivity studies, eventual use of my lunar irradiance model (co-development) for nighttime atmospheric property retrievals.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: <a href="https://www.cira.colostate.edu/staff/miller-steve/" target="_blank">Dr. Steven Miller</a></TD>
+            </TR>
+            
+        </table> 
+        
+        <!-- Egyptian Meteorological Authority -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="ema"></a></span><h4 style="text-align:center;"><b>Egyptian Meteorological Authority</b><br />Cairo</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Ashraf Zakey</TD>
+            </TR>
+
+        </table> 
+        
+        <!-- China University of Geosciences -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="cug"></a></span><h4 style="text-align:center;"><b>China University of Geosciences</b><br />Wuhan, China</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Minghui Tao</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: </TD>
+            </TR>            
+        </table>
+        
+        
+        <!-- Harvard-Smithsonian Center for Astrophysics -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="cfa"></a></span><h4 style="text-align:center;"><b>Harvard-Smithsonian Center for Astrophysics</b><br />Cambridge, MA</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Xiong Liu</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Helmholtz-Zentrum Geesthacht -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="hzg"></a></span><h4 style="text-align:center;"><b>Helmholtz-Zentrum Geesthachtr</b><br />Geesthacht, Germany</h4></TH></TR>
+            <TR>
+                <TD>Simulation of TOA reflectances for algorithm developments for coastal water remeote sensing</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Roland Doerffer</TD>
+            </TR>
+        </table>
+
+        <!-- Hong Kong Polytechnic University -->
+         <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="hkpu"></a></span><h4 style="text-align:center;"><b>Hong Kong Polytechnic University</b><br />Hong Kong, China</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Zhaoyang Zhang</TD>
+            </TR>
+        </table>  
+        
+        <!-- NASA Langley Research Center -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="langley"></a></span><h4 style="text-align:center;"><b>NASA Langley Research Centerr</b><br />Hampton, VA</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Xu Liu</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Dr. Qiguang Wang, Dr. Ming Zhao</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Leibniz Institute for Tropospheric Research e.V. -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="leibniz"></a></span><h4 style="text-align:center;"><b>Leibniz Institute for Tropospheric Research</b><br />Leipzig, Germany</h4></TH></TR>
+            <TR>
+                <TD>I would like to use UNL-VRTM for research purpose and understand its capabilities.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Bomidi Lakshmi Madhavan</TD>
+            </TR>
+        </table>
+        
+        <!-- University of Michigan -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="michigan"></a></span><h4 style="text-align:center;"><b>University of Michigan</b><br />Ann Arbor, MI</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Xianglei Huang</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Dr. Xiuhong Chen</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Second Institute of Oceanography, MNR-->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="sio"></a></span><h4 style="text-align:center;"><b>Second Institute of Oceanography, MNR</b><br />Hangzhou China</h4></TH></TR>
+            <TR>
+                <TD>Calibration of satellite signal, research on the satellite image processing. Comparisons of different radiative transfer models.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Dr. Yiwei Zhang</TD>
+            </TR>
+
+        </table>
+        
+        <!-- UAcademy of Opto-Electronics -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="aoe"></a></span><h4 style="text-align:center;"><b>Academy of Opto-Electronics, Chinese Academy of Sciences</b><br />Beijing</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Yaokai Liu</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Pusan National University -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="pusan"></a></span><h4 style="text-align:center;"><b>Pusan National University</b><br />Geumjeong-gu, South Korea</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM to simulate hyperspectral data from aircraft and satellite; use RT calculation to retrieve for above cloud aerosol. </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Wonkook Kim; Seong Hyeon Jang</TD>
+            </TR>
+        </table>
+        
+        <!-- University of Science and Technology of China -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="ustc"></a></span><h4 style="text-align:center;"><b>University of Science and Technology of China</b><br />Hefei, China</h4></TH></TR>
+            <TR>
+                <TD>We use UNL-VRTM to calculate the scattering and absorption of greenhouse gases</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact:</b> Shichao Wu</TD>
+            </TR>
+            
+            <TR><TH>...<br /></TH></TR>
+            <TR>
+                <TD>Cloud inversion and forward modeling, trace gas inversion, global climate change, satellite remote sensing, multi-scale stereo atmospheric environmental monitoring, fire monitoring.</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Contact</b>: Shuntian Wang</TD>
+            </TR>
+            
+        </table>
+        
+        <!-- Texas A&amp;M University -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="tamu"></a></span><h4 style="text-align:center;"><b>Texas A&amp;M University</b><br />College Station, TX</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD>Group Website: </TD>
+            </TR>
+            <TR>
+                <TD><b>Group Leader</b>: Dr. Ping Yang</TD>
+            </TR>
+            <TR>
+                <TD><b>Group Members</b>: Junjun Liu</TD>
+            </TR>
+
+        </table>
+        
+        <!-- Yonsei -->
+        <table class="user_tbl">
+            <TR><TH><span class="paddedAnchor"><a name="yonsei"></a></span><h4 style="text-align:center;"><b>Yonsei University</b><br />Seoul, South Korea</h4></TH></TR>
+            <TR>
+                <TD>Description of intent of use</TD>
+            </TR>
+            <TR>
+                <TD>Group Website: </TD>
+            </TR>
+            <TR>
+                <TD>Group Leader:</TD>
+            </TR>
+            <TR>
+                <TD>Group Members:</TD>
+            </TR>
+            <TR>
+                <TD>Lalala</TD>
+            </TR>
+        </table>
+        
+    </div>
+
+</div>
+
+<div id="wrapper960-blank" class="roundbox4 frame">
+
+    <div id="footer">
+    <p>Copyright &copy; 2018-2024 unl-vrtm.org, all rights reserved. &nbsp;&nbsp; | &nbsp;&nbsp;
+    <a href="termofuse.php.html">Terms of Use</a>
+    </p>
+    </div>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

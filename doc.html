@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+	        <title>UNL-VRTM</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Website for UNL-VRTM radiative transfer model" />
+        <meta name="keywords" content="Radiative transfer, UNL-VRTM, request UNL-VRTM, Xiaoguang Xu, polarimetric aerosol inversion, OSSE, UNL-VRTM User Guide" />
+        <meta name="author" content="Xiaoguang Richard Xu" />
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,300,200|Droid+Sans' rel='stylesheet' type='text/css' />
+        <link href="inland.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="style/boxes.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="js/base.js"></script>
+</head>
+
+<body>
+
+<!-- table style -->
+<style type="text/css">
+   table.ug_tbl {
+      margin-left: 10%;
+      margin-right:20%;
+      border-width: 1px 1px 1px 1px;
+      border-spacing: 4px;
+      padding:10px 10px 20px 10px;
+      border-style: solid solid solid solid;
+      border-color: #aaa;
+      border-collapse: separate;
+      background-color: none;
+      border-radius:5px;
+   }
+   table.ug_tbl th {
+      border-width: 1px 1px 1px 1px;
+      padding: 1px 5px 1px 10px;
+      border-style: inset inset inset inset;
+      border-color: #ccc #ccc #ccc #ccc;
+      background-color: none;
+      -moz-border-radius: 0px 0px 0px 0px;
+   }
+   table.ug_tbl td {
+      border-width: 1px 1px 1px 1px;
+      padding: 1px 10px;
+      border-style: inset solid inset inset;
+      border-color: #ccc #ccc #ccc #ccc;
+      background-color: none;
+      border-radius: 2px 2px 2px 2px;
+   }
+</style>
+
+
+<div id="header" class="clearfix" style="z-index:99;">
+     <div style="margin:0px auto;width:960px;">    
+                <div id="sitetitle" class="clearfix">
+                        <!--<h1 class="textshadow"><a href="index.php">U N L - V R T M</span></a></h1> -->
+                        <a href="index.php.html"><img src="images/unlvrtm-log-blue-new-small.png" height="25" style="display:block;padding:25px 0px 5px 50px;"/></a>
+                </div>
+
+                <div id="nav" class="clearfix textshadow">
+                        <ul>
+                        <li><a  href="index.php.html">Home</a></li>
+                        <li><a  href="gettingstarted.php.html">Getting Started</a></li>
+                        <li><a  href="code.php.html">Code</a></li>
+                        <li><a class="current" href="doc.html">Documents</a></li>
+                        <li><a  href="community.php.html">Community</a></li>
+                        <li><a  href="https://unl-vrtm.org/contact.php">Contact</a></li>
+                        <li><a  href="give.php.html">Give</a></li>
+                        </ul>
+                </div>
+
+        </div>
+</div>
+
+<article>
+<div id="wrapper960" class="clearfix">
+
+	<div id="content" class="clearfix">
+
+        <br>
+        <h2>User's Guide, Technical Description, and Science Publications</h2>
+		<div style="border-top:1px solid #b9b9b9; margin-top:0px;"> </div>
+
+        <br>
+        <table class="ug_tbl">
+            <TR><h4><b>UNL-VRTM User's Guides*:</b></h4></TR> 
+                <p style="padding-left:5%">*Click the version number to view User's Guide</p>
+
+            <TR><TD style="border:none"><b>Versions</b></TD><TD style="border:none"><b>Date</b></TD><TD style="border:none"><b>Updates in brief</b></TD></TR> 
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v2.1.20.pdf">2.1.20</a></TD>
+                <TD>05/04/2020</TD>
+                <TD>Change to free format fortan 95; Relax phase function reading; Add refractive index to BPDF2009; minor bug fixes</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v2.1.8.pdf">2.1.8</a></TD>
+                <TD>12/02/2019</TD>
+                <TD>BPDF corrected; 2-level radiance output enabled; max spectra increased to 50K</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v2.0.1.pdf">2.0.1</a></TD>
+                <TD>10/04/2018</TD>
+                <TD>Core codes compiled into static libraries; improved HITRAN gas absorption simulations</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.6.4.beta.pdf">1.6.3</a></TD>
+                <TD>12/19/2017</TD>
+                <TD>Minor upgrades on makefiles, code remains same to v1.6.2.</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.6.2.pdf">1.6.2</a></TD>
+                <TD>07/03/2017</TD>
+                <TD>Bug fix on spectral convolution; change aerosol loading input.</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.6.1.pdf">1.6.1</a></TD>
+                <TD>05/05/2017</TD>
+                <TD>Update HITRAN database to HITRAN2012 for major gases; gas transmission verified with MODTRAN in near-IR region.</TD>
+            </TR>
+            <TR> 
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.6.0.pdf">1.6.0</a></TD>
+                <TD>04/25/2017</TD>
+                <TD>Continuum absorption added for H2O, CO2, O3, O2 and N2.</TD>
+            </TR>
+            <TR>   
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.5.3.pdf">1.5.3</a></TD>
+                <TD>04/12/2017</TD>
+                <TD>Option for user-specified surface pressure and altitude</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.5.2.pdf">1.5.2</a></TD>
+                <TD>10/26/2016</TD>
+                <TD>Weighting function for individual gas; redefine azimuth angles; gas spectral convolution on transmittance</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.5.1.pdf">1.5.1</a></TD>
+                <TD>09/13/2016</TD>
+                <TD>Option for profile and/or column Jacobians</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.5.0.pdf">1.5.0</a></TD>
+                <TD>07/11/2016</TD>
+                <TD>GEOS5 profile; User aerosol profile and single scattering property; gas transmittance</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.4.6.pdf">1.4.6</a></TD>
+                <TD>11/24/2015</TD>
+                <TD>User atmos profile; Loc/time SZA; Gas lookup table</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_userguide_v1.3.pdf">1.3.0</a></TD>
+                <TD>Dec 2014</TD>
+                <TD>First released public version</TD>
+            </TR>
+        </table>
+
+		<br>
+
+        <table class="ug_tbl">
+            <TR><h4><b>UNL-VRTM Notes:</b></h4></TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_notes_01.pdf">Note 1</a></TD>
+                <TD>Preparing VLIDORT inputs</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_notes_02.pdf">Note 2</a></TD>
+                <TD>On VLIDORT Jacobian outputs</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_notes_03.pdf">Note 3</a></TD>
+                <TD>Columnar Jacobian vs. profile Jacobian</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_notes_04.pdf">Note 4</a></TD>
+                <TD>On aerosol vertical profile</TD>
+            </TR>
+            <TR>
+                <TD><a href="doc/pdfs/unlvrtm_notes_05.pdf">Note 5</a></TD>
+                <TD>On Jacobians to gaseous mixing ratio and columnar density</TD>
+            </TR>
+        </table>
+        <br>
+        
+		
+		<h4>Articles Describing the Development of UNL-VRTM:</h4>
+            <ul type="circle" style="margin-left:80px;padding-right:15%;" >
+            <li><p class="publication">
+                Xu X. and J. Wang, (2019), <a href="https://doi.org/10.1007/978-3-030-20587-4_1" target="_blank">UNL-VRTM, a testbed for aerosol remote sensing: Model developments and applications</a>, in <i>Springer Series in Light Scattering, Vol 4</i>, edited by A. Kokhanovsky, pp. 1-69, Springer, Cham, doi:10.1007/978-3-030-20587-4_1. [ <a href="doc/pdfs/Xu_SSLS_2019.pdf">PDF</a> ]
+            </p></li>
+            <li><p class="publication">
+                Wang J., X. Xu, S. Ding, J. Zeng, R. Spurr, X. Liu, K. Chance, and M. Mishchenko, <a href="http://www.sciencedirect.com/science/article/pii/S0022407314001368" target="_blank">A numerical testbed for remote sensing of aerosols, and its demonstration for evaluating retrieval synergy from geostationary satellite constellation</a>, <i>Journal of Quantitative Spectroscopy & Radiative Transfer</i>, 2014, 146(0), 510-528. [ <a href="doc/pdfs/Wang_unlvrtm_2014.pdf">PDF</a> ]
+            </p></li>
+            </ul>
+            
+        <h4>Journal Artciles of Important UNL-VRTM Components & Datasets:</h4>
+            <ul type="circle" style="margin-left:80px;padding-right:15%;" >
+            <li><p class="publication">
+                Rothman, L. S., et al. (2013), <a href="https://doi.org/10.1016/j.jqsrt.2013.07.002" target="_blank">The HITRAN2012 molecular spectroscopic database</a>, Journal of Quantitative Spectroscopy and Radiative Transfer, 130, 4-50, doi:10.1016/j.jqsrt.2013.07.002.
+            </p></li>
+            <li><p class="publication">
+                Spurr, R. (2006), <a href="https://doi.org/10.1016/j.jqsrt.2006.05.005" target="_blank">VLIDORT: A linearized pseudo-spherical vector discrete ordinate radiative transfer code for forward model and retrieval studies in multilayer multiple scattering media</a>, Journal of Quantitative Spectroscopy & Radiative Transfer, 102, 316-342, doi:10.1016/j.jqsrt.2006.05.005. 
+            </p></li>
+            <li><p class="publication">
+                Spurr, R., J. Wang, J. Zeng, and M. I. Mishchenko (2012), <a href="https://doi.org/10.1016/j.jqsrt.2011.11.014" target="_blank">Linearized T-matrix and Mie scattering computations</a>, Journal of Quantitative Spectroscopy and Radiative Transfer, 113(6), 425-439, doi:10.1016/j.jqsrt.2011.11.014.
+            </p></li>
+            <li><p class="publication">
+                Spurr, R. (2004), <a href="https://doi.org/10.1016/S0022-4073(02)00283-2" target="_blank">A new approach to the retrieval of surface properties from earthshine measurements</a>, Journal of Quantitative Spectroscopy and Radiative Transfer, 83(1), 15-46, doi:10.1016/S0022-4073(02)00283-2.
+            </p></li>
+            </ul>
+
+        
+                 
+		<h2>Science Publications Using UNL-VRTM</h2>
+                <div style="border-top:1px solid #b9b9b9; margin-top:0px;"> </div>
+                <br />
+		<ol style="padding-left:10%;padding-right:15%;">
+		        <li value="2022">
+		        <p class="publication">
+		            Pearlman, A., Cook, M., Efremova, B., Padula, F., Lamsal, L., McCorkel, J., and Joiner, J., <a href="https://doi.org/10.5194/amt-15-4489-2022" target="_blank">Polarization performance simulation for the GeoXO atmospheric composition instrument: NO2 retrieval impacts</a>, <i>Atmos. Meas. Tech.</i>, 2022, 15, 4489–4501, doi:10.5194/amt-15-4489-2022.
+		        </p></li>
+		        <li value="2022">
+		        <p class="publication">
+		            Li, C., X. Xu, X. Liu, J. Wang, K. Sun, J. van Geffen, Q. Zhu, J. Ma, J. Jin, K. Qin, Q. He, P. Xie, B. Ren, and R. C. Cohen (2022), <a href="https://doi.org/10.34133/2022/9817134" target="_blank">Direct retrieval of NO2 vertical column from UV-Vis (390-495 nm) spectral radiances using neural network</a>, <i>Journal of Remote Sensing</i>, 2022, 9817134, doi: 10.34133/2022/9817134.
+		        </p></li>
+		        <li value="2021">
+		        <p class="publication">
+		            Chen, X., J. Wang, X. Xu, M. Zhou, H. Zhang, L. Castro Garcia, P. R. Colarco, S. J. Janz, J. Yorks, M. McGill, J. S. Reid, M. de Graaf, and S. Kondragunta (2021), <a href="https://doi.org/10.1016/j.rse.2021.112674" target="_blank">First retrieval of absorbing aerosol height over dark target using TROPOMI oxygen B band: Algorithm development and application for surface particulate matter estimates</a>, <i>Remote Sensing of Environment</i>, 265, 112674, doi: 10.1016/j.rse.2021.112674.
+		        </p></li> 
+		        <li value="2021">
+		        <p class="publication">
+		            Lu, Z.,J. Wang, X. Xu , X. Chen, S. Kondragunta, O. Torres, E.M. Wilcox, and J. Zeng (2021), <a href="https://doi.org/10.3389/frsen.2021.766628" target="_blank">Hourly Mapping of the Layer Height of Thick Smoke Plumes Over the Western U.S. in 2020 Severe Fire Season</a>, <i>Frontiers in Remote Sensing</i>, 2, 766628, doi: 10.3389/frsen.2021.766628.
+		        </p></li>      
+		        <li value="2021">
+		        <p class="publication">
+		            Li, Z., W. Hou, Z. Qiu, et. al. (2021), <a href="https://doi.org/10.1109/TGRS.2021.3110320" target="_blank">Preliminary On-Orbit Performance Test of the First Polarimetric Synchronization Monitoring Atmospheric Corrector (SMAC) On-Board High-Spatial Resolution Satellite Gao Fen Duo Mo (GFDM)</a>, <i> IEEE Transactions on Geoscience and Remote Sensing</i>, 60, 4104014, doi:10.1109/TGRS.2021.3110320.
+		        </p></li>
+		        <li value="2021">
+		        <p class="publication">
+		            Wang, Y., J. Wang, R. C. Levy, Y. R. Shi, S. Mattoo, and J. S. Reid (2021), <a href="https://doi.org/10.1029/2021GL094344" target="_blank">First retrieval of AOD at fine-resolution over the coastal shallow and turbid waters from MODIS</a>, <i>Geophys. Res. Lett.</i>, 48, e2021GL094344, doi: 10.1029/2021GL094344.
+		        </p></li> 
+		        <li value="2021">
+		        <p class="publication">
+		            Bian, Q., S. Kreidenweis, J. C. Chiu, S. Miller, X. Xu, J. Wang, R. Kahn, J. Limbacher, L. Remer, and R. Levy (2021), <a href="https://doi.org/10.1029/2021JD035209" target="_blank">Constraining aerosol phase function using dual-view geostationary satellites</a>, <i>J. Geophys. Res. – Atmosphere</i>, 126, e2021JD035209, doi: 10.1029/2021JD035209.
+		        </p></li>
+		        <li value="2021">
+		        <p class="publication">
+		            Zhou, M., J. Wang, X. Chen, X. Xu, P. R. Colarco, S. D. Miller, J. S. Reid g, S. Kondraguntah, D. M. Gilese, and B. Holben (2021), <a href="https://doi.org/10.1016/j.rse.2021.112717" target="_blank">Nighttime smoke aerosol optical depth over U.S. rural areas: First retrieval</a>, <i>Remote Sensing of Environment</i>, 267, 112717, doi:10.1016/j.rse.2021.112717.
+		        </p></li>
+		        <p class="publication">
+		            Chen, X., X. Xu, J. Wang, and D. J. Diner (2021), <a href="https://doi.org/10.1016/j.jqsrt.2021.107679" target="_blank">Can multi-angular polarimetric measurements in the oxygen-A and B bands improve the retrieval of aerosol vertical distribution?</a>, <i>Journal of Quantitative Spectroscopy & Radiative Transfer</i>, 270, 107679, doi:10.1016/j.jqsrt.2021.107679.
+		        </p></li>
+		        <li value="2020">
+		        <p class="publication">
+		            Puthukkudy, A., Martins, J. V., Remer, L. A., Xu, X., Dubovik, O., Litvinov, P., McBride, B., Burton, S., and Barbosa, H. M. J. (2020), <a href="https://doi.org/10.5194/amt-13-5207-2020" target="_blank">Retrieval of aerosol properties from Airborne Hyper-Angular Rainbow Polarimeter (AirHARP) observations during ACEPOL 2017</a>, <i>Atmos. Meas. Tech.</i>, 13, 5207–5236, doi:10.5194/amt-13-5207-2020.
+		        </p></li>
+		        <li value="2020">
+		        <p class="publication">
+		            Zheng, F., Z. Li, W. Hou, L. Qie, and C. Zhang (2020), <a href="https://doi.org/10.1117/1.JRS.14.014516" target="_blank">Aerosol retrieval study from multiangle polarimetric satellite data based on optimal estimation method</a>, <i>J. Appl. Remote Sens.</i>, 14(1), 014516, doi: 10.1117/1.JRS.14.014516.
+		        </p></li>
+		        <li value="2020">
+		        <p class="publication">
+		            Wang, J., S. Roudini,  E. J. Hyer, X. Xu, M. Zhou, L. C. Garcia, J. S. Reid, D. Petersond, and A. D. Silva (2020), <a href="https://doi.org/10.1016/j.rse.2019.111466" target="_blank">Detecting Nighttime Fire Combustion Phase by Hybrid Application of Visible and Infrared Radiation from Suomi NPP VIIRS</a>, <i>Remote Sensing of Environment</i>, 237, 111466, doi: 10.1016/j.rse.2019.111466.
+		        </p></li>
+		        <li value="2020">
+		        <p class="publication">
+		            Wang J., M. Zhou, X. Xu, S. Roudini, S. Sander, T. Pongett, S. Miller, J. S. Reid, E. Hyer, R. Spurr (2020), <a href="https://doi.org/10.1016/j.rse.2020.111727" target="_blank">Development of a nighttime shortwave radiative transfer model for remote sensing of nocturnal aerosols and fires from VIIRS</a>, <i>Remote Sensing of Environment</i>, 241, 111727, doi:10.1016/j.rse.2020.111727.
+		        </p></li>
+		        <li value="2020">
+		        <p class="publication">
+		            Hou, W., J. Wang, X. Xu, J. Reid, S. Janz and J. Leitch (2020), <a href="https://doi.org/10.1016/j.jqsrt.2020.107161" target="_blank">An algorithm for hyperspectral remote sensing of aerosols: 3. Application to the GEO-TASO data in KORUS-AQ field campaign</a>, <i>Journal of Quantitative Spectroscopy & Radiative Transfer.</i>, 253, 107161, doi:10.1016/j.jqsrt.2020.107161.
+		        </p></li>
+		        <li value="2019">
+		        <p class="publication">
+		            Cheng, L., J. Tao, P. Valks, C. Yu, S. Liu, Y. Wang, X. Xiong, Z. Wang, and L. Chen, (2019) <a href="https://doi.org/10.3390/rs11243017" target="_blank">NO2 Retrieval from the Environmental Trace Gases Monitoring Instrument (EMI): Preliminary Results and Intercomparison with OMI and TROPOMI </a>, <i>Remote Sens.</i> 11, 3017. doi: 10.3390/rs11243017.
+		        </p></li>
+		        <li value="2019">
+		        <p class="publication">
+		            Wang, Y., J. Wang, and X. Xu (2019), <a href="https://doi.org/10.1364/HISE.2019.HTh1B.1" target="_blank">Using AIRS hyperspectral observations to optimize dust refractive index in infrared spectrum</a>, in <i>Optical Sensors and Sensing Congress </i>(ES, FTS, HISE, Sensors), OSA Technical Digest (Optical Society of America, 2019), paper HTh1B.1, doi: 10.1364/HISE.2019.HTh1B.1.
+		        </p></li>
+		        <li value="2019">
+		        <p class="publication">
+		            Hou, W., Z. Li, C. Song, J. Lin, Y. Ma, B. Ge, and F. Zheng (2019), <a href="https://doi.org/10.1117/12.2542736" target="_blank">Study on errors propagation in synchronous atmospheric correction for HJ-2 satellites</a>, in <i>Proc. SPIE 11338, AOPC 2019: Optical Sensing and Imaging Technology</i>, 113380V (18 December 2019), doi: 10.1117/12.2542736.
+		        </p></li>
+		        <li value="2019">
+		        <p class="publication">
+		            Lorraine R., A. Davis, S. Mattoo, R. Levy, O. Kalashnikova, J. Chowdhary, K. Knobelspiesse, X. Xu, Z. Ahmad, E. Boss, B. Cairns, O. Coddington, H. Dierssen, D. Diner, B. Franz, R. Frouin, B.-C. Gao, A. Ibrahim, J. V. Martins, A. Omar, O. Torres, F. Xu, and P. Zhai (2019), <a href="https://doi.org/10.3389/feart.2019.00152" target="_blank">Retrieving aerosol characteristics from the PACE mission, Part 1: Ocean Color Instrument</a>, <i>Frontiers in Earth Science</i>, 7, 152, doi:10.3389/feart.2019.00152.
+		        </p></li>
+		        <li value="2019">
+		        <p class="publication">
+		            Xu X. and J. Wang, (2019), <a href="https://doi.org/10.1007/978-3-030-20587-4_1" target="_blank">UNL-VRTM, a testbed for aerosol remote sensing: Model developments and applications</a>, in <i>Springer Series in Light Scattering, Vol 4</i>, edited by A. Kokhanovsky, pp. 1-69, Springer, Cham, doi:10.1007/978-3-030-20587-4_1. [ <a href="doc/pdfs/Xu_SSLS_2019.pdf">PDF</a> ]
+		        </p></li>
+		        <li value="2019">
+		        <p class="publication">
+		            Zheng, F., W. Hou, X. Sun, Z. Li, J. Hong, Y. Ma, L. Li, K. Li, Y. Fan, and Y. Qiao (2019), <a href="https://www.mdpi.com/2073-4433/10/4/196" target="_blank">Optimal Estimation Retrieval of Aerosol Fine-Mode Fraction from Ground-Based Sky Light Measurements</a>, <i>Atmosphere</i>, 10(4), 196, doi:10.3390/atmos10040196
+		        </p></li>
+		    	<li value="2019">
+                <p class="publication">
+                    Zheng F., W. Hou, and Z. Li (2019), <a href="http://wulixb.iphy.ac.cn/CN/10.7498/aps.68.20181682" target="_blank">Optimal estimation retrieval for directional polarimetric camera onboard Chinese Gaofen-5 satellite: an analysis on multi-angle dependence and a posteriori error</a>, <i>Acta Physica Sinica</i>, 68(4), 040701, doi:10.7498/aps.68.20181682.
+                </p></li>
+		        <li value="2019">
+                <p class="publication">
+                    Ding S. and F. Weng (2019), <a href="http://www.cmsjournal.net:8080/Jweb_jmr/EN/10.1007/s13351-019-8137-7" target="_blank">Influences of physical processes and parameters on simulations of TOA radiance at UV wavelengths: Implications for satellite UV instrument validation</a>, <i>J. Meteor. Res.</i>, doi: 10.1007/s13351-019-8137-7.
+                </p></li>
+		        <li value="2019">
+                <p class="publication">
+                    Xu F., J. Ma, S. Wu, and Z. Li (2019) <a href="https://doi.org/10.1016/j.jqsrt.2018.11.019" target="_blank">Identification of smoke and polluted clouds based on polarized satellite images</a>, <i>Journal of Quantitative Spectroscopy and Radiative Transfer</i>, 224, 343-354, doi:10.1016/j.jqsrt.2018.11.019.
+                </p></li>
+                <li value="2019">
+                <p class="publication">
+                    Xu X., J. Wang, Y. Wang, J. Zeng, O. Torres, J. S. Reid, S. D. Miller, J. V. Martins, and L. A. Remer (2019), <a href="https://doi.org/10.5194/amt-12-3269-2019" target="_blank">Detecting layer height of smoke aerosols over vegetated land and water surfaces via oxygen absorption bands: Hourly results from EPIC/DSCOVR satellite in deep space</a>, <i>Atmos. Meas. Tech. </i>, 12, 3269-3288, doi:10.5194/amt-12-3269-2019.
+                </p></li>
+                <li value="2018">
+                <p class="publication">
+                    Xu, X., J. Wang, J. Zeng, W. Hou, K. G Meyer, S. E. Platnick, and E. Wilcox (2018), <a href="https://doi.org/10.1016/j.jqsrt.2018.09.024" target="_blank">A pilot study of shortwave spectral fingerprints of smoke aerosols above liquid clouds</a>, <i>Journal of Quantitative Spectroscopy and Radiative Transfer</i>, 221, 38-51, doi:10.1016/j.jqsrt.2018.09.024.
+                </p></li>
+                <li value="2018">
+                <p class="publication">
+                        Li, Z., W. Hou, J. Hong, F. Zheng, D. Luo, J. Wang, X. Gu, and Y. Qiao (2018), <a href="https://doi.org/10.1016/j.jqsrt.2018.07.003" target="_blank">Directional Polarimetric Camera (DPC): Monitoring aerosol spectral optical properties over land from satellite observation</a>, <i>Journal of Quantitative Spectroscopy and Radiative Transfer</i>, 218, 21–37, doi:10.1016/j.jqsrt.2018.07.003.
+                </p></li>
+                <li value="2018">
+                    Hou W., Z. Li, F. Zheng, L. Qie (2018), <a href="https://doi.org/10.5194/isprs-archives-XLII-3-533-2018" target="_blank">Retrieval of aerosol microphysical properties based on the optimal estimation method: Information content analysis for satellite polarimetric remote sensing measurements</a>.  <i>The International Archived of the Photogrammetry, Remote Sensing and Spatial Information Sciences, ISPRS TC III Mid-term Symposium "Development, Technologies and Applications in Remote Sensing”</i>, Beijing, p533-537, doi:10.5194/isprs-archives-XLII-3-533-2018.
+                </p></li>
+                <li value="2018">
+                <p class="publication">
+                Hou, W., Z. Li, J. Wang, X. Xu, P. Goloub, and L. Qie (2018), <a href="https://doi.org/10.1002/2017JD027388" target="_blank">Improving remote sensing of aerosol microphysical properties by near-infrared polarimetric measurements over vegetated land: Information content analysis</a>,  <i>J. Geophys. Res. Atmos.</i>, 123, 2215-2243, doi:10.1002/2017JD027388.
+                </p></li>
+                <li value="2018">
+                <p class="publication">
+                   Xu X., J. Wang, Y. Wang, and A. Kokhanovsky (2018), <a href="https://doi.org/10.1016/B978-0-12-810437-8.00001-3" target="_blank">Passive remote sensing of aerosol height</a>, in <i>Remote Sensing of Aerosols, Clouds, and Precipitation</i>, edited by T. Islam, Y. Hu, A. Kokhanovsky, and J. Wang, pp.1-22, Elsevier, Cambridge, MA, doi:10.1016/B978-0-12-810437-8.00001-3.
+                </p></li>
+
+                <li value="2017">
+                <p class="publication">
+                Tao M., L. Chen, Z. Wang, J. Wang, H. Che, W. Wang, J. Tao, X. Xu, H. Zhu, and C. Hou (2017), <a href="https://doi.org/10.1002/2017JD026976" target="_blank">Evaluation of MODIS Deep Blue aerosol algorithm in desert region of East Asia: ground validation and inter-comparison</a>, <i>J. Geophys. Res. Atmos.</i>, 122, 10357-10368, doi:10.1002/2017jd026976.
+                </p></li> 
+
+                <li value="2017">
+                <p class="publication">
+                Xu X., J. Wang, Y. Wang, J. Zeng, O. Torres, Y. Yang, A. Marshak, J. Reid, and S. Miller (2017), <a href="http://dx.doi.org/10.1002/2017GL073939" target="_blank">Passive remote sensing of altitude and optical depth of dust plumes using the oxygen A and B bands: First results from EPIC/DSCOVR at Lagrange-1 point</a>, <i>Geophys. Res. Lett.</i>, 44, 7544-7554, doi:10.1002/2017GL073939.
+                 </p></li>
+
+                <li value="2017">
+                <p class="publication">
+                Wang, Y., J. Wang, R. C. Levy, X. Xu, and J. S. Reid (2017), <a href="http://dx.doi.org/10.3390/rs9060595" target="_blank">MODIS Retrieval of Aerosol Optical Depth over Turbid Coastal Water</a>, <i>Remote Sensing</i>, 9(6), 595, doi:10.3390/rs9060595.
+                </p></li> 
+
+                <li value="2017">
+                <p class="publication">
+                    Hou W., J. Wang, X. Xu, and J. Reid (2017), <a href="http://dx.doi.org/10.1016/j.jqsrt.2017.01.041" target="_blank">An algorithm for hyperspectral remote sensing of aerosols: 2. Information content analysis for aerosol parameters and principal components of surface spectra</a>, <i>Journal of Quantitative Spectroscopy and Radiative Transfer</i>, 192, 14-29, doi:http://dx.doi.org/10.1016/j.jqsrt.2017.01.041.
+                </p></li>
+
+                <li value="2017">
+                <p class="publication">
+                     Xu X., J. Wang, Y. Wang, D. K. Henze, L. Zhang, G. A. Grell, S. McKeen. and B. Wielicki (2017), <a href="http://dx.doi.org/10.1002/2017JD026677" target="_blank">Sense Size-Dependent Dust Loading and Emission from Space Using Reflected Solar and Infrared Spectral Measurements: An Observation System Simulation Experiment</a>, <i>J. Geophys. Res. Atmos.</i>, 122, 8233-8254, doi:10.1002/2017JD026677.
+                </p></li>
+
+                <li value="2017">
+                <p class="publication">
+                    Chen X., J. Wang, Y. Liu, X. Xu, Z. Cai, D. Yang, C. Yan, and L. Feng (2017), <a href="https://doi.org/10.1016/j.rse.2017.05.007" target="_blank">Angular dependence of aerosol information content in CAPI/TanSat observation over land: effect of polarization and synergy with A-train satellites</a>, <i>Remote Sensing of Environment</i>, 96, 163-177, doi:https://doi.org/10.1016/j.rse.2017.05.007.
+                </p></li>
+
+                <li value="2016">
+                <p class="publication"> 
+                    Wang J., C. Aegerter, X. Xu, and J. Szykman (2016), <a href="https://doi.org/10.1016/j.atmosenv.2015.11.013" target="_blank">Potential application of VIIRS Day/Night Band for monitoring nighttime surface PM2.5 air quality from space</a>, <i>Atmospheric Environment</i>, 124, 55-63, doi: https://doi.org/10.1016/j.atmosenv.2015.11.013.
+                </p></li>
+
+                <li value="2016">
+                <p class="publication"> 
+                    Hou W., J. Wang, X. Xu, and J. Reid (2016), <a href="https://doi.org/10.1016/j.jqsrt.2016.01.019" target="_blank">An algorithm for hyperspectral remote sensing of aerosols: 1. Development of theoretical framework</a>, <i>Journal of Quantitative Spectroscopy and Radiative Transfer</i>, 178, 400-415, doi:https://doi.org/10.1016/j.jqsrt.2016.01.019.
+                </p></li>
+
+                <li value="2016">
+                <p class="publication"> 
+                    Ding S., J. Wang, and X. Xu (2016), <a href="https://doi.org/10.5194/amt-9-2077-2016" target="_blank">Polarimetric remote sensing in O2 A and B bands: Sensitivity study and information content analysis for vertical profile of aerosols</a>, <i>Atmos. Meas. Tech.</i>, 9, 2077-2092, doi:10.5194/amt-9-2077-2016.
+                </p></li>
+
+                <li value="2015">
+                <p class="publication">
+                   Xu X., J. Wang, J. Zeng, R. Spurr, X. Liu, O. Dubovik, L. Li, Z. Li, M. I. Mishchenko, A. Siniuk, and B. N. Holben (2015), <a href="http://dx.doi.org/10.1002/2015JD023113" target="_blank">Retrieval of aerosol microphysical properties from AERONET photopolarimetric measurements: 2. A new research algorithm and case demonstration</a>, <i>J. Geophys. Res.</i>, 120, 7079-7098, doi:10.1002/2015JD023113.
+                </p></li>
+
+                <li value="2015">
+                <p class="publication">
+                     Xu X. and J. Wang (2015), <a href="http://dx.doi.org/10.1002/2015JD023108" target="_blank">Retrieval of aerosol microphysical properties from AERONET photopolarimetric measurements: 1. Information content analysis</a>, <i>J. Geophys. Res. Atmos.</i>, 120, 7059-7078, doi:10.1002/2015JD023108.
+                </p></li>
+
+
+		<li value="2014">
+                <p class="publication">
+                        Wang J., X. Xu, S. Ding, J. Zeng, R. Spurr, X. Liu, K. Chance, and M. Mishchenko (2014), <a href="https://doi.org/10.1016/j.jqsrt.2014.03.020" target="_blank">A numerical testbed for remote sensing of aerosols, and its demonstration for evaluating retrieval synergy from geostationary satellite constellation</a>, <i>Journal of Quantitative Spectroscopy & Radiative Transfer</i>, 146, 510-528, doi:10.1016/j.jqsrt.2014.03.020.
+                </p></li>
+
+		</ol>
+		<br>
+
+             </div>  
+
+</div>
+</article>
+
+<! Common header>
+<div id="wrapper960-blank" class="roundbox4 frame">
+
+    <div id="footer">
+    <p>Copyright &copy; 2018-2024 unl-vrtm.org, all rights reserved. &nbsp;&nbsp; | &nbsp;&nbsp;
+    <a href="termofuse.php.html">Terms of Use</a>
+    </p>
+    </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

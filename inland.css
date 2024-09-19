@@ -1,0 +1,304 @@
+/*
+Original design: Inland (v1.2 - Sep 12, 2012) - A free xhtml/css website template by Andreas Viklund.
+For more information, see http://andreasviklund.com/templates/inland/
+Includes:
+jQuery v1.7.1 from http://jquery.org/
+Nivo Slider v2.7.1 by Gilbert Pellegrom - http://nivo.dev7studios.com/
+*/
+
+*{border:0;font:inherit;font-size:100%;margin:0;padding:0;vertical-align:baseline;}
+
+/* HTML elements */
+/* original background color:f2f2f2*/
+body{
+     background-image:url('images/light_honeycomb.jpg');
+     background-color:#ffffff;color:#222;
+     background-attachment: fixed;
+     font-family: 'Open Sans', sans-serif; font-size:0.9em;
+     font-weight: 300; font-style: normal; line-height: 1.6em;
+}
+a{color:#0087E2;text-decoration:none;}  /* was #a54569 */
+a:hover{color:#111;text-decoration:none;}
+a img{border:none;}
+h1,h2,h3,h4{clear:left;color:#1c1a1a;margin:0.7em 20px;}
+h1{font-family:'Yanone Kaffeesatz';font-size:2.2em;font-weight:200;}
+h2{font-family:'Open Sans', sans-serif;font-size:1.6em;font-weight:300;}
+h3{font-family:'Open Sans', sans-serif;font-size:1.4em;font-weight:300;}
+h4{font-family:'Open Sans', sans-serif;font-size:1.2em;font-weight:300;}
+h5{clear:left;color:#1c1a1a;margin-top:0.7em;font-family:'Open Sans', sans-serif;font-size:1.2em;}
+p{margin:0 0 20px 20px;}
+ul{margin:0 0 20px 0;}
+i,em {font-style:italic;}
+b,strong {font-weight:700;}
+
+/* Additional elements */
+.cleaner {clear:both}
+.divider { margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #ccc; }
+.liner   { margin-top:10px; margin-bottom:20px;padding-top:0px; border-top:1px solid #ccc; }
+.darkliner{ margin-top:10px; margin-bottom:20px;padding-top:0px; border-top:1px solid #666; }
+.grayliner{ margin-top:10px; margin-bottom:20px;padding-top:0px; border-top:1px solid #aaaaaa; }
+.whiteliner{ margin-top:10px; margin-bottom:20px;padding-top:0px; border-top:1px solid #eeeeee; }
+.brightliner{ margin-top:0px; margin-bottom:0px;padding-top:0px; border-top:1px dotted #ddd; }
+
+.shadow {box-shadow:0px 1px 5px #aaa;-webkit-box-shadow:0px 1px 5px #aaa;-moz-box-shadow:0px 1px 5px #aaa;}
+.border {border:1px solid #5d5d5d;}
+.textshadow {text-shadow:0px 1px 5px #aaa;-webkit-text-shadow:0px 1px 5px #aaa;-moz-text-shadow:0px 1px 5px #aaa;}
+.textnonshadow{text-shadow:none;-webkit-text-shadow:none;-moz-text-shadow:none;}
+.roundbox4{border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;}
+.roundbox6{border-radius:6px;-moz-border-radius:6px;-webkit-border-radius:6px;}
+.roundbox10{border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;}
+.frame{border:1px solid #eee;}
+.shadow{box-shadow:0px 1px 5px #aaa; -webkit-box-shadow:0px 1px 5px #aaa;}
+.graybg{background-color:#ddd;}
+.bluegraybg{background-color:#edefef;}
+.lightbluebg{background-color:#f3f9fe;}
+.lightgraybg{background-color:#eee;}
+.blackbg{background-image:url('image/blackbg.jpg');}
+.darkbg{background-color:#222;}
+.nobg{background:none}
+
+
+/* Main wrappers */
+#wrapper960-blank{background:none;margin:10px auto; margin-top:20px; margin-bottom:30px;width:960px;}
+#wrapper960{background-color:#ffffff;margin:10px auto;width:960px;margin-top:70px;
+	    border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+	    min-height:400px; }
+#wrapper960-gray{background-color:#f8f8f8;margin:10px auto;width:960px;margin-top:70px;
+            border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+            min-height:400px; }
+
+/* Layout IDs */
+#header{position:fixed;width:100%;
+        margin:0 auto;top:0px;
+        /*background-color:#999;*/ 
+	background-image:url('images/light_honeycomb.jpg');
+	opacity:0.95;
+        -webkit-transform: translateZ(0);}
+#sitetitle{float:left;margin:0;}
+#sitetitle h1 {font-size:2.2em;font-weight:300;margin:30px 0 10px 40px;padding:0;}
+#sitetitle h1 a{color:#333;}
+#sitetitle h1 a:hover{color:#111;}
+#header-image{height:300px;margin:0;padding:0;}
+#content{padding:20px 20px 20px 20px;background-color:none}
+#extended{padding:5px 20px;}
+#extended a{text-decoration:none;}
+
+/* Top links menu */
+
+/* Main navigation menu */
+#nav{float:right;font-family: 'Open Sans', sans-serif;text-align:center;margin-right:50px;}
+#nav ul{list-style:none;margin:30px 10px 15px 30px;}
+#nav ul li{display:inline-block;text-align:center;height:auto;margin-left:30px;position:relative;}
+#nav ul li a{color:#222;display:block;font-size:12px;padding-top:0;text-transform:uppercase;}
+#nav ul li a:hover{color:#3366ff;}
+#nav ul li a.current{color:#3366ff;}
+
+/* Sub navigation menu */
+#subtitle{width:auto; float:left;}
+#subtitle a{color:#333;}
+#subtitle a:hover{color:#3366ff;}
+#subnav{font-family:'Open Sans',sans-serif;text-align:center;width:auto; float:center;padding-top:15px;}
+#subnav a{line-height:25px; display:inline-block; width:auto; height:25px;
+            background:none;color:#555555;text-align:center; margin-left:25px;
+            border-radius:5px; padding:2px 8px;
+            -moz-border-radius:5px;-webkit-border-radius:5px;border:1px solid #555555;}
+#subnav a:hover{color:#555;border:1px solid #3366ff;}
+#subnav a.current{color:#3366ff;border:1px solid #3366ff;}
+
+/* Columns */
+#sidebar{width:33.3%;}
+#main{width:66.6%;}
+#bileft{width:49.5%; float:left;}
+#biright{width:49.5%;float:right;}
+#trio1{float:left;width:33.3%;}
+#trio2{float:left;width:33.3%;}
+#trio3{float:right;width:33.3%;}
+.inner{margin:5px 30px;}
+#trio1 .inner{margin-left:0;}
+#trio2 .inner{margin:0;}
+#trio3 .inner{margin-right:0;}
+.left .inner{margin-left:0;}
+.right .inner{margin-right:0px;}
+
+/* Footer */
+#footer{clear:both;color:#666;margin:0 20px; }
+#footer p{font-size:12px;margin:0;padding:20px 20px;text-align:center;}
+#footer a{color:#0066cc;}
+#footer a:hover{color:#2c2b2b;}
+
+/* Image alignment */
+img.alignleft,img.aligncenter,img.alignright{background:#fff;padding:2px;margin-bottom:10px;border:1px solid #ddd;}
+.alignleft{float:left;margin-right:30px;}
+.alignright{float:right;margin-left:30px;}
+.aligncenter{text-align:center;display:block;clear:both;margin:5px auto;}
+img.richard{background:#fff;padding:2px;margin:50px 50px 30px 30px;border:1px solid #999;}
+.richard{float:right;margin:50px;}
+img.footright{margin:15px 30px;float:right;}
+img.footleft{margin:15px 30px 20px 0px;float:left;}
+
+/* Additional classes */
+.splitline{background:url(images/splitline.png.html) top center no-repeat;}
+.clear{clear:both;}
+.left{float:left;}
+.right{float:right;}
+.linkarrow{margin:0 0px -4px 1px; height:18px;}
+
+/* Clearing fix */
+.clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden;}
+* html .clearfix{height:1%;}
+*:first-child+html .clearfix{min-height:1%;}
+
+/* Alternate color scheme, add class="altcolors" to the body tag to apply */
+.altcolors{background-color:#e6e8e8;}
+.altcolors #wrapper600, .altcolors #wrapper760, .altcolors #wrapper960, .altcolors #wrapper1240, .altcolors #wrapperfluid {box-shadow: 0px 0px 28px #888;}
+.altcolors #toplinks, .altcolors #footer{background-color:#eaecec;}
+.altcolors #content{background-color:#f2f4f4;}
+
+/*
+ jQuery Nivo Slider v2.7.1
+ http://nivo.dev7studios.com
+ Copyright 2011, Gilbert Pellegrom
+ Free to use and abuse under the MIT license.
+ http://www.opensource.org/licenses/mit-license.php
+ */
+.nivoSlider{position:relative;}
+.nivoSlider img{position:absolute;top:0;left:0;}
+.nivoSlider a.nivo-imageLink{position:absolute;top:0;left:0;width:100%;height:100%;border:0;padding:0;margin:0;z-index:6;display:none;}
+.nivo-slice{display:block;position:absolute;z-index:5;height:100%;}
+.nivo-box{display:block;position:absolute;z-index:5;}
+.nivo-caption{position:absolute;left:0;bottom:0;background:#000;color:#fff;opacity:0.8;width:100%;z-index:8;}
+.nivo-caption p{padding:5px;margin:0;}
+.nivo-caption a{display:inline!important;}
+.nivo-html-caption{display:none;}
+.nivo-directionNav a{position:absolute;top:45%;z-index:9;cursor:pointer;}
+.nivo-prevNav{left:0;}
+.nivo-nextNav{right:0;}
+.nivo-controlNav a{position:relative;z-index:9;cursor:pointer;}
+.nivo-controlNav a.active{font-weight:700;}
+
+/*
+Skin Name: Nivo Slider Default Theme (modified)
+Skin URI: http://nivo.dev7studios.com
+Skin Type: flexible
+Description: The default skin for the Nivo Slider, modified to work with the Inland One template.
+Version: 1.2
+Author: Gilbert Pellegrom (modified by Andreas Viklund)
+Author URI: http://dev7studios.com
+*/
+.slider-wrapper .nivoSlider{position:relative;height:300px;background:#fafafa url(images/loading.gif.html) no-repeat 50% 50%;margin:10px 0px;}
+.slider-wrapper .nivoSlider img{position:absolute; top:0;left:0;display:none;}
+.slider-wrapper .nivoSlider a{border:0;display:block;}
+.slider-wrapper .nivo-controlNav{position:absolute;left:50%;bottom:05px;margin-left:-60px;/* Tweak this to center bullets */}
+.slider-wrapper .nivo-controlNav a{display:block;width:22px;height:22px;background:url(images/bullets.png.html) no-repeat;text-indent:-9999px;border:0;margin-right:3px;float:left;}
+.slider-wrapper .nivo-controlNav a.active{background-position:0 -22px;}
+.slider-wrapper .nivo-directionNav a{display:block;width:30px;height:30px;background:url(images/arrows.png.html) no-repeat;text-indent:-9999px;border:0;}
+.slider-wrapper a.nivo-nextNav{background-position:-30px 0;right:15px;}
+.slider-wrapper a.nivo-prevNav{left:15px;}
+.slider-wrapper .nivo-caption{font-family:'Droid Sans',Helvetica,Arial,sans-serif;background:rgba(0, 0, 0, 0.2);text-align:center;text-shadow:0 0 4px #111;}
+.slider-wrapper .nivo-caption a{color:#fff;border-bottom:1px dotted #fff;}
+.slider-wrapper .nivo-caption a:hover{color:#fff;}
+
+/* Mobile styles */
+#wrappermobile {width:100%; margin:0px auto;}
+#wrappermobile .slider-wrapper, #wrappermobile .slider-wrapper .nivoSlider {width:100%;}
+#wrappermobile .slider-wrapper .nivoSlider img{width:100%;}
+#wrappermobile #sitetitle {margin:20px auto 0; padding:0; text-align:center;float:none;}
+#wrappermobile #nav {float:none;}
+#wrappermobile #nav ul {margin:20px auto 5px;}
+#wrappermobile #nav ul li {margin:0 15px 10px; line-height:20px;}
+#wrappermobile #header-image {height:100px;}
+#wrappermobile #content {padding-top:5px;margin:5px 5px 5px -5px;}
+#wrappermobile #footer{background-color:##b22222;padding:10px 30px;}
+#wrappermobile #footer p{font-size:0.6em;margin:0;padding:0;}
+
+/* Styles added by xxu */
+p.publication {
+	text-indent: 0px;
+	margin-left: 0px;
+	text-align: justify;
+}
+
+a.button { height:auto;display:block;
+	   color:#0087E2;background:none;text-align:center;
+           margin:0px; padding:10px 20px;
+	   border:1px solid #0087E2;
+           border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
+a.button:hover{color:#ffffff;background:#0087E2;border:1px solid #0087E2;}
+
+a.button_bl{ display:block;color:#fff;background:#0087E2;text-align:center;
+             width:auto;height:auto;
+             padding:10px 20px; border:1px solid #0087E2;
+             border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;}
+a.button_bl:hover{color:#0087E2;background:none;}
+
+
+form input[type="submit"] {
+        -moz-border-radius:5px;
+        -webkit-border-radius:5px;
+        border-radius:5px;border:1px solid #0087E2;
+        background:#0087E2;color:#ffffff;height:32px;width:100px;
+        font-family:'Open Sans', sans-serif;font-size:1.2em;
+        cursor:pointer;text-align:center;
+        padding:1px 10px;}
+form input:hover[type="submit"] {background:none;color:#0087E2}
+
+form input[type="text"] {
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;border:1px solid #ccc;
+        padding:0 3px; text-align:center; }
+
+form textarea[type="textarea"] {
+        border-radius:3px;
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border:1px solid #ccc;
+        padding:0 3px;text-align:left; }
+
+form select{
+        -moz-border-radius:3px;
+        -webkit-border-radius:3px;
+        border-radius:3px;border:1px solid #ccc;
+        padding:0 3px;text-align:left; }
+
+/* Gradient color for top menu bar*/
+.gdt-color {
+	background: rgba(97,96,97,1);
+	background: -moz-linear-gradient(top, rgba(97,96,97,1) 0%, rgba(99,98,99,1) 11%, rgba(56,55,56,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(97,96,97,1)), color-stop(11%, rgba(99,98,99,1)), color-stop(100%, rgba(56,55,56,1)));
+	background: -webkit-linear-gradient(top, rgba(97,96,97,1) 0%, rgba(99,98,99,1) 11%, rgba(56,55,56,1) 100%);
+	background: -o-linear-gradient(top, rgba(97,96,97,1) 0%, rgba(99,98,99,1) 11%, rgba(56,55,56,1) 100%);
+	background: -ms-linear-gradient(top, rgba(97,96,97,1) 0%, rgba(99,98,99,1) 11%, rgba(56,55,56,1) 100%);
+	background: linear-gradient(to bottom, rgba(97,96,97,1) 0%, rgba(99,98,99,1) 11%, rgba(56,55,56,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#616061', endColorstr='#383738', GradientType=0 );
+}
+
+/* Table for Links page */
+table.link_tbl {
+	margin:30px 0;
+  	border-width: 1px 1px 1px 1px;
+	border-spacing: 4px;
+   	padding:5px;
+  	border-style: solid solid solid solid;
+   	border-color: #aaa;
+  	border-collapse: separate;
+	background-color: none;
+  	border-radius:3px;
+}
+table.link_tbl th {
+     	border-width: 1px 1px 1px 1px;
+  	padding: 1px 5px 1px 10px;
+    	border-style: inset inset inset inset;
+  	border-color: #ccc #ccc #ccc #ccc;
+    	background-color: none;
+   	-moz-border-radius: 0px 0px 0px 0px;
+}
+	table.link_tbl td {
+   	border-width: 1px 1px 1px 1px;
+     	padding: 1px 10px;
+    	border-style: inset solid inset inset;
+    	border-color: #ccc #ccc #ccc #ccc;
+     	background-color: white;
+   	border-radius: 2px 2px 2px 2px;
+}
+.tbl_subtitle{border-width:0px; border-color:#fff;}
